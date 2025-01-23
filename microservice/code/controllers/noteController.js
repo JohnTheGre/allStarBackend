@@ -1,4 +1,4 @@
-import { hash, compare } from 'bcryptjs';
+import { hash, compare } from 'bcrypt';
 import pkg from 'jsonwebtoken';
 const { sign } = pkg;
 import fs from 'fs';
