@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "tile": "List of animals",
+    "date": "September 2024"
+  },
+  "users": [
+    {
+      "user": "JohnTheGreat",
+      "email": "aydotjohn@gmail.com",
+      "password": "$2b$10$8rXC46Y5jWouMcDV5JisVOLpV3YZk4d9Ne0/VWwCxO82RLlOoq86W",
+      "notes": [
+        {
+          "note": "notes to save "
+        }
+      ]
+    }
+  ]
+}
