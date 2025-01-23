@@ -5,9 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node start.js",
-    "dev": "nodemon start.js",
-    "postinstall": "npm rebuild bcrypt --build-from-source"
+    "dev": "nodemon start.js"
   },
   "nodemonConfig": {
     "ignore": [
@@ -27,8 +25,5 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
-  },
-  "engines": {
-    "node": "16.x"
   }
 }
