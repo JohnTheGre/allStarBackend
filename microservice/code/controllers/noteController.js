@@ -106,7 +106,8 @@ export async function addNote(req, res) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    foundUser.notes.push({ note });
+    const timestamp = new Date().toISOString(); // Current time in ISO format
+    foundUser.notes.push({ note, timestamp }); // Add the note with the timestamp
     writeDatabase(db);
 
     res.status(201).json({ message: 'Note added successfully', note });
@@ -131,7 +132,7 @@ export async function getNotes(req, res) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    res.status(200).json({ notes: foundUser.notes });
+    res.status(200).json({ notes: foundUser.notes }); // Include the timestamp with the notes
   } catch (error) {
     console.error('Error fetching notes:', error);
     res.status(500).json({ message: 'Internal server error' });
