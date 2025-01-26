@@ -137,3 +137,63 @@ export async function getNotes(req, res) {
     res.status(500).json({ message: 'Internal server error' });
   }
 }
+
+export async function deleteNote(req, res) {
+  try {
+    const { user, note } = req.body;
+
+    if (!user || !note) {
+      return res.status(400).json({ message: "User and note are required" });
+    }
+
+    const db = readDatabase();
+    const foundUser = db.users.find((u) => u.user === user);
+
+    if (!foundUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const noteIndex = foundUser.notes.findIndex((n) => n.note === note);
+    if (noteIndex === -1) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+
+    foundUser.notes.splice(noteIndex, 1); // Remove the note
+    writeDatabase(db);
+
+    res.status(200).json({ message: "Note deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting note:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+export async function editNote(req, res) {
+  try {
+    const { user, oldNote, newNote } = req.body;
+
+    if (!user || !oldNote || !newNote) {
+      return res.status(400).json({ message: "User, old note, and new note are required" });
+    }
+
+    const db = readDatabase();
+    const foundUser = db.users.find((u) => u.user === user);
+
+    if (!foundUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const noteIndex = foundUser.notes.findIndex((n) => n.note === oldNote);
+    if (noteIndex === -1) {
+      return res.status(404).json({ message: "Old note not found" });
+    }
+
+    foundUser.notes[noteIndex].note = newNote; // Update the note
+    writeDatabase(db);
+
+    res.status(200).json({ message: "Note updated successfully", note: newNote });
+  } catch (error) {
+    console.error("Error updating note:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
